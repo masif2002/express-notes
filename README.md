@@ -39,3 +39,17 @@ const manoj = "Manoj"
 module.exports = { asif, manoj } // Converted to ES6 Syntax from { asif: asif, manoj: manoj }
 ```
 * It is not necessary that you export it as an object, you can also export it anyway you like
+### Inbuilt modules
+```
+os
+path
+fs (filesystem)
+http
+```
+* These are some of the inbuilt modules
+* You can have sync/async read-writes with the fs module
+___
+```js
+const os = require('os')
+```
+* This is how you use an in-built module. Note that there isno `./` in the beginning
