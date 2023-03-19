@@ -91,3 +91,40 @@ npm install <package_name> -D
 * Event Loops are like an internal thing in JS, that takes care of asynchronous tasks
 * JavaScript is synchronous and single threaded by default
 * During asynchronous tasks, **Event Loop** registers the asynchronous callback and executes the callback only when there is no immediate code to execute
+
+## Promise, Async, Await
+* JavaScript is synchronous in nature
+* A function that returns a Promise is a an asynchronous function
+* `await` is used to wait for the asynchronous functiion to complete first and then execute
+
+### Ways to return a promise
+```js
+// Explicitly returning a Promise
+const greet = (text) => {
+    return new Promise((resolve, reject) => {
+        if (text) resolve("Hello World")
+        else reject("No text")
+    })
+}
+
+
+const sayHello = async () => {
+    await greet()
+    .then((msg) => console.log(msg) )
+    .catch((err) => console.log(err))
+}
+
+sayHello()
+```
+```js
+// Node ways of functions returning a promise
+// Method 1
+const { readFile, writeFile } = require('fs')
+const utils = require('util')
+utils.promisify(readFile)
+utils.promisify(writeFile)
+
+// Method 2
+const { readFile, writeFile } = require('fs').promises
+
+```
