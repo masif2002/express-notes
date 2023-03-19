@@ -85,4 +85,9 @@ npm install <package_name> -D
 ```
 * `npm start` runs the script
 * `npm run dev` runs the dev script
-* Some scripts can run directly with `npm <command>` but you need to run others with `npm run <script>`
+* Some scripts can run directly with `npm <command>` but you need to run usually with `npm run <script>`
+
+## Event Loops
+* Event Loops are like an internal thing in JS, that takes care of asynchronous tasks
+* JavaScript is synchronous and single threaded by default
+* During asynchronous tasks, **Event Loop** registers the asynchronous callback and executes the callback only when there is no immediate code to execute
