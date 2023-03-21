@@ -1,3 +1,4 @@
+# Node.js
 ## Global Variables
 ```
 __dirname
@@ -117,7 +118,7 @@ const sayHello = async () => {
 sayHello()
 ```
 ```js
-// Node ways of functions returning a promise
+// "Node" ways of functions returning a promise
 // Method 1
 const { readFile, writeFile } = require('fs')
 const utils = require('util')
@@ -128,3 +129,20 @@ utils.promisify(writeFile)
 const { readFile, writeFile } = require('fs').promises
 
 ```
+## Event Emitters
+* We have event emitters in node with which we can perform certain set of tasks if a certain event occurs
+* Many modules in node internally use Event Emitters
+
+## Streams
+* Streams are used to read/write data in chunks
+* When sending data across the network, sending data in chunks can help improve your app performance
+
+## Express.js
+* ExpressJS is a Node.js framework built on top of the http module
+
+## Serving static files
+```js
+// Express fetches all the static files from the public folder in this case
+app.use(express.static('./public'))
+```
+* You can also dump the `index.html` file in the public folder and Express will by default serve the index.html file at the route `/`
