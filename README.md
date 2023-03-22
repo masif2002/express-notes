@@ -146,3 +146,29 @@ const { readFile, writeFile } = require('fs').promises
 app.use(express.static('./public'))
 ```
 * You can also dump the `index.html` file in the public folder and Express will by default serve the index.html file at the route `/`
+
+## Route parameters
+```js
+app.get('/api/products/:id', (req, res) => {
+    const { id } = req.params
+    const singleProduct = products.find((product) => 
+        product.id === Number(id) 
+    )
+    return res.json(singleProduct)
+})
+```
+
+## Query parameters
+```js
+
+app.get('/api/v1/search', (req, res) => {
+    const { term } = req.query
+
+    let newProducts = products
+    newProducts = newProducts.filter((product) => product.name.startsWith(term))
+
+    if (newProducts.length < 1) return res.status(200).json('No Products found')
+
+    return res.json(newProducts)
+})
+```
