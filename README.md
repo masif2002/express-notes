@@ -234,3 +234,74 @@ ____
 app.use('api/v1/', logger)
 ```
 * This passes the middleware function to all the routes that start with `api/v1/`
+
+### Middleware function to parse request body
+```js
+// parse form data
+app.use(express.urlencoded({ extended: false }))
+```
+* When sending form data through POST request, the data is sent in the bofy od the request. To parse that data, we need to set up this middleware function
+* `req.body` gives the data sent in the body
+____
+* Similarly, for parsing json 
+```js
+// parse json
+app.use(express.json())
+```
+* For every `Content-Type` in the request header, there is a middleware function to parse that specific content type. (That's what I think)
+
+## Express Router
+* Express Router provides a way to group routes to maintain a neat hierarchy
+* Usually routes with a common prefix are grouped together
+* Check out the [sample code](./practice/express-router.js)
+
+### Controllers
+* Controllers is just another way to organize the routes in the express router
+* We basically move all the functions to a dir named controllers and call those specific functions on hitting those specific routes
+```js
+// Before Controllers
+// ./routes/auth.js 
+const express = require('express')
+const router = express.Router()
+
+router.get('/login', (req, res) => {
+    res.status(200).send("Login Page")
+})
+
+router.get('/signup', (req, res) => {
+    res.status(200).send("Sign Up Page")
+})
+
+module.exports = router
+```
+```js
+//  After Controllers
+// ./routes/auth.js 
+const express = require('express')
+const {
+    loginFunctionality,
+    signupFunctionality
+} = require('../controllers.auth.js')
+
+const router = express.Router()
+
+router.get('/login', loginFunctionality)
+router.get('/signup', signupFunctionality) 
+
+module.exports = router
+```
+```js
+// ./controllers/auth.js
+const loginFunctionality = (req, res) => {
+    res.status(200).send("Login Page")
+}
+
+const signupFunctionality = (req, res) => {
+    res.status(200).send("Sign Up Page")
+}
+
+module.exports = {
+    loginFunctionality,
+    signupFunctionality
+}
+```
