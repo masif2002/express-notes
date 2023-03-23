@@ -172,3 +172,65 @@ app.get('/api/v1/search', (req, res) => {
     return res.json(newProducts)
 })
 ```
+
+## Middleware
+```
+request => Middleware => response
+```
+* You get the request and perform some action in the middleware and pass it as a response. This is the general usecase of middelware
+* You can create your own middleware functions like shown below, and also use Express's own MW or 3rd party MW functions (from npm)
+____
+```js
+const logger = (req, res, next) => {
+    const method = req.method
+    const url = req.url 
+    const date = new Date()
+    console.log([method, url, date])
+    next()
+}
+
+const greet = (req, res, next) => {
+    console.log("Hello World")
+}
+
+app.get('/', [logger, greet], (req, res) => {
+    res.json("Yoo")
+})
+
+app.get('/about', logger, (req, res) => {
+    res.send("About")
+})
+```
+* Here, `logger` and `greet` are two middleware functions for the route `/`
+* Here, the `next()` method is used to pass the control to the next middleware function
+> If the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function. Otherwise, the request will be left hanging.
+____
+```js
+const logger = (req, res, next) => {
+    const method = req.method
+    const url = req.url 
+    const date = new Date()
+    res.send([method, url, date])
+}
+
+app.get('/', logger, (req, res) => {
+    res.json("Yoo")
+})
+
+app.get('/about', logger, (req, res) => {
+    res.send("About")
+})
+```
+* Here, the request-response cycle is completed in the middleware function, so the `next()` function is not needed
+
+### Passing middleware to multiple routes
+```js
+app.use(logger)
+```
+* This line passes the `logger` middleware function to all the routes written below it
+* If you need to pass multiple functions, pass in an array of functions
+____
+```js
+app.use('api/v1/', logger)
+```
+* This passes the middleware function to all the routes that start with `api/v1/`
