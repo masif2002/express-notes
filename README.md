@@ -259,7 +259,7 @@ app.use('api/v1/', logger)
 // parse form data
 app.use(express.urlencoded({ extended: false }))
 ```
-* When sending form data through POST request, the data is sent in the bofy od the request. To parse that data, we need to set up this middleware function
+* When sending **form** data through POST request, the data is sent in the body of the request. To parse that data, we need to set up this middleware function
 * `req.body` gives the data sent in the body
 ____
 * Similarly, for parsing json 
